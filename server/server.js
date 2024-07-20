@@ -2,20 +2,26 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
+app.use(express.static('./public')); // visit index.html
+/*
 const students = [
     {id: 'alskdjf01', name: 'aaa', age: 19},
     {id: 'alskdjf02', name: 'bbb', age: 20},
     {id: 'alskdjf03', name: 'ccc', age: 21}
 ];
+8/
 
+/*
 app.get('/students', (req, res) => {
     // res.send(`callback(${ students })`); // this one is not correct, will pass to the browser with "callback([object Object],[object Object],[object Object])"
     // res.send(`callback(${ JSON.stringify(students) })`); // It works but not flexible
 
     const { callback } = req.query;
     res.send(`${callback}(${ JSON.stringify(students) })`)
-})
+});
+*/
 
 /*
 app.use(cors({
@@ -45,6 +51,20 @@ app.get('/students', (req, res) => {
     res.send(students);
 })
 */
+
+app.use('/api', createProxyMiddleware({// use http-proxy-middleware to send cross origin requests
+    target: 'https://www.toutiao.com', // send `/api` requests to target url
+    changeOrigin: true, // allow cross-origin
+    pathRewrite: {
+        /*
+        change the origin
+            http://127.0.0.1:8081/api/news/today
+        to
+            https://www.toutiao.com/news/today
+        */
+        '^/api': ''
+    }
+}));
 
 app.listen(8081, () => {
     console.log('server on 8081 launched!')

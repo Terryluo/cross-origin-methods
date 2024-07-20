@@ -14,7 +14,7 @@
             // add await because it is promise to get object
             let result = await fetch(url);
             // get the data from result in json format
-            let data = await result.json;
+            let data = await result.json();
             console.log(data);
         }
     </script>

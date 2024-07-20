@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+</head>
+<body>
+    <h2>Get News</h2>
+    <button onclick="getNews()">get news from toutiao</button>
+    <!-- use script from 3.cross-origin-problem_limiting-Ajax-retrive-request-data -->  
+    <script type="text/javascript">
+        async function getNews() {
+            // please note that you're no longer send to to toutiao.com, you will use http-proxy-middleware to help sending it
+            // const url = 'http://127.0.0.1:8081/api/hot-event/hot-board/?origin=toutiao_pc';
+            const url = '/api/hot-event/hot-board/?origin=toutiao_pc'; // our browser will identify the origin url
+
+            let result = await fetch(url);
+            let data = await result.json();
+            console.log(data);
+        }
+    </script>
+</body>
+</html>
