@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONP</title>
+</head>
+<body>
+    <button onclick="getStudents()">get students list</button>
+    <script type="text/javascript">
+        function callback1(data) {
+            console.log(data);
+        }
+
+        function getStudents() {
+            // create new script tag in order to obtain data, and link to port 8081
+            const newScript = document.createElement('script');
+            // newScript.src = 'http://127.0.0.1:8081/students'; // It works but not flexible
+            newScript.src = 'http://127.0.0.1:8081/students?callback=callback1'
+
+            // our target is to obtain data only, we don't want to create new tags, so delete the tags when we retrive the data
+            newScript.onload = () => {
+                newScript.remove();
+            };
+
+            // append new script to document body
+            document.body.appendChild(newScript);
+        }
+    </script>
+</body>
+</html>

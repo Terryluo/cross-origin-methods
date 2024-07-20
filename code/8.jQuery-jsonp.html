@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery-JSONP</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <button onclick="getStudents()">get students list</button>
+    <script type="text/javascript">
+        function getStudents() {
+            // callback=? is necessary to add
+            $.getJSON('http://127.0.0.1:8081/students?callback=?', (data) => {
+                console.log(data);
+            });
+        }
+    </script>
+</body>
+</html>

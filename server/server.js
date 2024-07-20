@@ -9,15 +9,24 @@ const students = [
     {id: 'alskdjf03', name: 'ccc', age: 21}
 ];
 
+app.get('/students', (req, res) => {
+    // res.send(`callback(${ students })`); // this one is not correct, will pass to the browser with "callback([object Object],[object Object],[object Object])"
+    // res.send(`callback(${ JSON.stringify(students) })`); // It works but not flexible
+
+    const { callback } = req.query;
+    res.send(`${callback}(${ JSON.stringify(students) })`)
+})
+
+/*
 app.use(cors({
-    
     // here are the config that cors may contains
     origin: 'http://127.0.0.1:5500',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'HEAD', 'OPTIONS'],
     allowedHeaders: ['school', 'city'], // allowed request headers
-    exposedHeaders: ['abc'] // exposed response headers
-    
+    exposedHeaders: ['abc'] // exposed response headers 
 }));
+*/
+
 /*
 // please remember that is you're using CORS, the preflight request method is "OPTIONS"
 app.options('/students', (req, res) => {
@@ -29,11 +38,13 @@ app.options('/students', (req, res) => {
 });
 */
 
+/*
 app.get('/students', (req, res) => {
     // res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
     res.setHeader('abc', 'xyz');
     res.send(students);
 })
+*/
 
 app.listen(8081, () => {
     console.log('server on 8081 launched!')
