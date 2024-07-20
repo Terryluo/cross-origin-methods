@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="getNews()">get news from toutiao</button>
+
+    <script type="text/javascript">
+        async function getNews() {
+            const url = 'https://www.toutiao.com/hot-event/hot-board/?origin=toutiao_pc';
+            // add await because it is promise to get object
+            let result = await fetch(url);
+            // get the data from result in json format
+            let data = await result.json;
+            console.log(data);
+        }
+    </script>
+</body>
+</html>
